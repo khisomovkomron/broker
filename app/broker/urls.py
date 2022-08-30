@@ -1,6 +1,6 @@
 from django.urls import path, include
-from views import BrokerView
+from . import views
 
 urlpatterns = [
-    path("", BrokerView.as_view(), name='broker'),
+    path("", views.BrokerView.as_view()),
 ]
