@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 # Create your models here.
@@ -8,4 +9,5 @@ class Broker(models.Model):
     
     def __str__(self):
         return self.title
-    
+
+
