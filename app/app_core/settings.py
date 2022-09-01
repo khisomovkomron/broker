@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.sites',
+
     
     # apps
     'user.apps.UserConfig',
@@ -55,7 +55,14 @@ INSTALLED_APPS = [
 
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 SIDE_ID=1
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
