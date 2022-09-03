@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='items',
+            model_name='shares',
             name='total_shares',
             field=models.IntegerField(),
         ),

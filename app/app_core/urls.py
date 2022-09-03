@@ -35,13 +35,10 @@ schema_view = get_schema_view( # new
 urlpatterns = [
     path("admin/", admin.site.urls),
     
-    re_path(r'^rest-auth/', include('dj_rest_auth.urls')),
-    re_path(r'^rest-auth/registration', include('dj_rest_auth.registration.urls')),
-    
     path("api/broker/", include('broker.urls')),
-    path("api/items/", include('items.urls')),
+    path("api/users/", include('user.urls')),
+    path("api/shares/", include('shares.urls')),
     
-
     path('', schema_view.with_ui(
         'swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
