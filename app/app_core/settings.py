@@ -40,23 +40,18 @@ INSTALLED_APPS = [
 
     
     # apps
-    'user.apps.UserConfig',
-    "broker.apps.BrokerConfig",
-    "shares.apps.SharesConfig",
+    'user',
+    "broker",
+    "shares",
     
     
     # third-party libraries
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
-    'dj_rest_auth',
-    'allauth',
-    'allauth.account',
 
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SIDE_ID=1
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -140,3 +135,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = 'broker.User'

@@ -39,7 +39,7 @@ urlpatterns = [
     
     path("api/broker/", include('broker.urls')),
     path("api/shares/", include('shares.urls')),
-    path("api/users/", include('user.urls')),
+    # path("api/users/", include('user.urls')),
     
 
     path('', schema_view.with_ui(

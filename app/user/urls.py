@@ -1,7 +1,10 @@
-from django.urls import path, include, re_path
-
-
-urlpatterns = [
-    re_path(r'^', include('dj_rest_auth.urls')),
-    re_path(r'^registration', include('dj_rest_auth.registration.urls')),
-]
+# from django.urls import path
+# from user import views
+#
+# app_name = 'user'
+#
+# urlpatterns = [
+#     path('create/', views.CreateUserView.as_view(), name='create'),
+#     path('token/', views.CreateTokenView.as_view(), name='token'),
+#     path('me/', views.ManageUserView.as_view(), name='me')
+# ]
