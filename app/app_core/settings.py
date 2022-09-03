@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # apps
     'user.apps.UserConfig',
     "broker.apps.BrokerConfig",
-    "items.apps.ItemsConfig",
+    "shares.apps.SharesConfig",
     
     
     # third-party libraries

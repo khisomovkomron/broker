@@ -39,7 +39,7 @@ urlpatterns = [
     re_path(r'^rest-auth/registration', include('dj_rest_auth.registration.urls')),
     
     path("api/broker/", include('broker.urls')),
-    path("api/items/", include('items.urls')),
+    path("api/shares/", include('shares.urls')),
     
 
     path('', schema_view.with_ui(
