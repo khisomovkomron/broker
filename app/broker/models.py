@@ -32,6 +32,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
     
     objects = UserManager()
     

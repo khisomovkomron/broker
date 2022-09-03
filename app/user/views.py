@@ -1,7 +1,7 @@
 from rest_framework import generics, authentication, permissions
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
-
+from broker.models import User
 from user.serializers import (
     UserSerializer,
     AuthTokenSerializer,
@@ -29,3 +29,4 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
 class ListUserView(generics.ListAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
+    queryset = User.objects.all()
