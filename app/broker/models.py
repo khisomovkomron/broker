@@ -37,13 +37,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
-    
     objects = UserManager()
     
     USERNAME_FIELD = "email"
 
+
 class Broker(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     shares = models.ManyToManyField("Shares")
@@ -51,13 +51,14 @@ class Broker(models.Model):
     def __str__(self):
         return self.title
 
+
 class Shares(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    total_shares = models.IntegerField()
+    total_shares = models.IntegerField(null=True)
     price = models.FloatField(max_length=255)
+    
 
     def __str__(self):
         return self.title
