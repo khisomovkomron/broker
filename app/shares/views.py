@@ -8,7 +8,7 @@ from broker import models
 class SharesListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = serializers.SharesSerializer
-    queryset = models.Shares.objects.order_by('title').values()
+    queryset = models.Shares.objects.all()
     
     
 class SharesDetailView(generics.RetrieveUpdateDestroyAPIView):
