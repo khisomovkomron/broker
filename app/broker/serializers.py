@@ -27,7 +27,8 @@ class BrokerSerializer(serializers.ModelSerializer):
         shares = validated_data.pop('shares')
         broker = Broker.objects.create(**validated_data)
         for share in shares:
-            Shares.objects.get_or_create(broker=broker, **share)
+            shares_obj, created = Shares.objects.get_or_create(broker=broker, **share)
+            broker.shares.add(shares_obj)
         
         return broker
     
