@@ -43,7 +43,13 @@ class BrokerSerializer(serializers.ModelSerializer):
     #
     #     instance.save()
     #     return instance
-        
+    
+
+class BrokerApiViewSerialiazer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Broker
+        fields = ('title', 'description')
         
         
         
