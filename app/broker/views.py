@@ -28,8 +28,9 @@ class BrokerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Broker.objects.all()
 
 
-class BrokerNestedView(APIView):
+class BrokerNestedView(generics.GenericAPIView):
     serializer_class = serializers.BrokerApiViewSerialiazer
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         brokers = models.Broker.objects.all()
