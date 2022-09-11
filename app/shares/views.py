@@ -1,27 +1,14 @@
-from rest_framework import generics
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from . import serializers
 from broker import models
 
-
-class SharesListView(generics.ListCreateAPIView):
+    
+class SharesListCreateView(GenericAPIView):
+    serializer_class = serializers.SharesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    serializer_class = serializers.SharesSerializer
-    queryset = models.Shares.objects.all()
-    
-    
-class SharesDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = serializers.SharesSerializer
-    queryset = models.Shares.objects.all()
-    
-    
-class SharesGetView(generics.GenericAPIView):
-    serializer_class = serializers.SharesSerializer
-    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         shares = models.Shares.objects.all()
@@ -51,3 +38,60 @@ class SharesGetView(generics.GenericAPIView):
         
         return Response(serializer.data)
     
+
+class SharesRetrieveView(GenericAPIView):
+    serializer_class = serializers.SharesSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+
+        id = request.query_params['id']
+        share = models.Shares.objects.get(id=id)
+        serializer = serializers.SharesSerializer(share)
+        
+        return Response(serializer.data)
+
+    def patch(self, request, *args, **kwargs):
+        share_object = models.Shares.objects.get()
+        data = request.data
+    
+        share_object.title = data.get('title', share_object.title)
+        share_object.description = data.get('description', share_object.description)
+        share_object.total_shares = data.get('total_shares', share_object.total_shares)
+        share_object.price = data.get('price', share_object.price)
+    
+        share_object.save()
+        serializer = serializers.SharesSerializer(share_object)
+    
+        return Response(serializer.data)
+
+class SharesUpdateView(GenericAPIView):
+    serializer_class = serializers.SharesSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        id = request.query_params['id']
+        share = models.Shares.objects.get(id=id)
+        serializer = serializers.SharesSerializer(share)
+    
+        return Response(serializer.data)
+    
+    def put(self, request, *args, **kwargs):
+        id = request.query_params['id']
+        share_object = models.Shares.objects.get(id=id)
+    
+        data = request.data
+    
+        share_object.title = data['title']
+        share_object.description = data['description']
+        share_object.total_shares = data['total_shares']
+        share_object.price = data['price']
+    
+        serializer = serializers.SharesSerializer(share_object)
+        return Response(serializer.data)
+        
+
+class SharesDetailView(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.SharesSerializer
+    queryset = models.Shares.objects.all()

@@ -20,6 +20,7 @@ class BrokerSerializer(serializers.ModelSerializer):
         for share in shares:
             shares_obj, created = Shares.objects.get_or_create(broker=broker, **share)
             broker.shares.add(shares_obj)
+
         
         return broker
     
