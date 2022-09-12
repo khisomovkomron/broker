@@ -1,4 +1,4 @@
-from rest_framework.generics import GenericAPIView, DestroyAPIView
+from rest_framework.generics import GenericAPIView, RetrieveDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
@@ -14,17 +14,13 @@ class SharesListCreateView(GenericAPIView):
         shares = models.Shares.objects.all()
         return shares
     
-    def get(self, request, *args, **kwargs):
-        try:
-            id = request.query_params['id']
-            share = models.Shares.objects.get(id=id)
-            serializer = serializers.SharesSerializer(share)
-        except:
-            share = self.get_queryset()
-            serializer = serializers.SharesSerializer(share, many=True)
+    def get(self, requests, *args, **kwargs):
+        share = self.get_queryset()
+        serializer = serializers.SharesSerializer(share, many=True)
         
         return Response(serializer.data)
-        
+    
+
     def post(self, request, *args, **kwargs):
         share = request.data
         
@@ -43,16 +39,18 @@ class SharesRetrieveView(GenericAPIView):
     serializer_class = serializers.SharesSerializer
     permission_classes = [IsAuthenticated]
 
+
     def get(self, request, *args, **kwargs):
 
-        id = request.query_params['id']
+        id = request.query_params.get('id')
         share = models.Shares.objects.get(id=id)
         serializer = serializers.SharesSerializer(share)
         
         return Response(serializer.data)
 
     def patch(self, request, *args, **kwargs):
-        share_object = models.Shares.objects.get()
+        id = request.query_params['id']
+        share_object = models.Shares.objects.get(id=id)
         data = request.data
     
         share_object.title = data.get('title', share_object.title)
@@ -75,7 +73,7 @@ class SharesUpdateView(GenericAPIView):
         serializer = serializers.SharesSerializer(share)
     
         return Response(serializer.data)
-    
+
     def put(self, request, *args, **kwargs):
         id = request.query_params['id']
         share_object = models.Shares.objects.get(id=id)
@@ -91,7 +89,7 @@ class SharesUpdateView(GenericAPIView):
         return Response(serializer.data)
         
 
-class SharesDetailView(DestroyAPIView):
+class SharesDetailView(RetrieveDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.SharesSerializer
     queryset = models.Shares.objects.all()
