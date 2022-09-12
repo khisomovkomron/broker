@@ -13,15 +13,6 @@ class BrokerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Broker
         fields = ['id', 'title', 'description', 'shares']
-        
-    # def _get_or_create_shares(self, shares, broker):
-    #     auth_user = self.context['request'].user
-    #     for share in shares:
-    #         share_obj, created = Shares.object.get_or_create(
-    #             user=auth_user,
-    #             **share,
-    #         )
-    #         broker.shares.add(share_obj)
             
     def create(self, validated_data):
         shares = validated_data.pop('shares')
@@ -29,6 +20,7 @@ class BrokerSerializer(serializers.ModelSerializer):
         for share in shares:
             shares_obj, created = Shares.objects.get_or_create(broker=broker, **share)
             broker.shares.add(shares_obj)
+
         
         return broker
     
@@ -43,7 +35,13 @@ class BrokerSerializer(serializers.ModelSerializer):
     #
     #     instance.save()
     #     return instance
-        
+    
+
+class BrokerApiViewSerialiazer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Broker
+        fields = ('title', 'description',)
         
         
         
