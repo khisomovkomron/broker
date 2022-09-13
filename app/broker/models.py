@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Broker(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     shares = models.ManyToManyField("Shares")
@@ -51,6 +51,7 @@ class Broker(models.Model):
 
 
 class Shares(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
